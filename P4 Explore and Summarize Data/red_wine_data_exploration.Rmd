@@ -222,7 +222,7 @@ A: I used coord_cartesian to limit x axis for sulphates because there are some e
 
 # Bivariate Plots Section
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r}
 red_wine$quality.factor <- as.factor(red_wine$quality)
 ```
 
