@@ -215,16 +215,17 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Hypotheses</strong> :</p>
-<p>Null Hypotheses : There is no significant difference between means of times taken by participants to read Congruent and Incongruent word sets.</p>
-<p>Alterantive Hypotheses : The is significant difference between means of times taken by participants to read Congruent and Incongruent word sets.</p>
+<p>Null Hypotheses : There is no significant difference between population means of times of Congruent and Incongruent groups.</p>
+<p>Alterantive Hypotheses : The is a significant difference between population means of times of Congruent and Incongruent groups.</p>
 $$H_0 : \mu_C - \mu_I = 0 $$$$H_A : \mu_C - \mu_I != 0 $$<p>Where:
 $$
 H_0  = Null Hypotheses \\
 H_A = Alternate Hypotheses \\
-\mu_C = Congruent mean \\
-\mu_I = Incongruent mean
-$$
-To verify that the difference is not just simply because of the variance in data, we will perform a dependent paired sample two tailed t-test with alpha level of 0.05. This is because the two samples are dependent and tested under same conditions. After doing all calculations, we can decide whether to reject or keep the Null hypotheses.</p>
+\mu_C = Congruent Mean \\
+\mu_I = Incongruent Mean
+$$</p>
+<p>Here we are talking about population means of both Congruent and Incongruent groups. By taking the means of population groups, we can compare these easily. But it is very difficult to take test results of all people in the world. That's why we take a sample test results and make inference about the population means.</p>
+<p>To verify that the difference is not just simply because of the variance in data, we will perform a dependent paired sample two tailed t-test with alpha level of 0.05. This is because the two samples are dependent and tested under same conditions. We are using t-test here because we are making inferences about unknown population parameters using sample parameters. We are using two tailed test because we don't know whether the resultant value will be either on left side or right side of population mean. So in a brief, we are using relatively small sample size(smaller than 30), we are assuming that the difference sample distribution is normal and both samples are dependent and tester under same conditions, we can use dependent two tailed t-test.</p>
 
 </div>
 </div>
@@ -694,9 +695,9 @@ MVwAAAAASUVORK5CYII=
 <p>We are taking 95% confidence level
 <strong>T test results</strong>:</p>
 <ol>
-<li>t statistic = -7.96479</li>
+<li>t statistic = -8.020706944</li>
 <li>Alpha value = 0.05</li>
-<li>t citrical values for two tailed test at an alpha of 0.05 = (-0.2069, +0.2069)</li>
+<li>t citrical values for two tailed test at an alpha of 0.05 = (-2.069, +2.069)</li>
 <li>Two tailed p-value = 0.000000041</li>
 <li>Effect size measure(cohen's d) = -1.637219912901304</li>
 <li>95% confidence interval for mean population difference = (-10.01440277, -5.91518)</li>
