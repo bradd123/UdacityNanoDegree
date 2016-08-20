@@ -90,27 +90,38 @@ ways_nodes.csv ............. 84.5MB
 ```
 ### Number of Nodes
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes;
+SELECT Count(*) 
+FROM   nodes; 
 ```
 2839263
 ### Number of Ways
 ```sql
-sqlite> SELECT COUNT(*) FROM ways;
+SELECT Count(*) 
+FROM   ways; 
 ```
 652228
 ### Number of Unique Users
 ```sql
-sqlite> SELECT COUNT(DISTINCT(e.uid))          
-FROM (SELECT uid FROM nodes UNION ALL SELECT uid FROM ways) e;
+SELECT Count(DISTINCT( e.uid )) 
+FROM   (SELECT uid 
+        FROM   nodes 
+        UNION ALL 
+        SELECT uid 
+        FROM   ways) e; 
 ```
 1503
 ### Top 10 Contributing Users
 ```sql
-sqlite> SELECT e.user, COUNT(*) as num
-FROM (SELECT user FROM nodes UNION ALL SELECT user FROM ways) e
-GROUP BY e.user
-ORDER BY num DESC
-LIMIT 10;
+SELECT e.user, 
+       Count(*) AS num 
+FROM   (SELECT user 
+        FROM   nodes 
+        UNION ALL 
+        SELECT user 
+        FROM   ways) e 
+GROUP  BY e.user 
+ORDER  BY num DESC 
+LIMIT  10; 
 ```
 ```
 jasvinderkaur,126271
@@ -126,25 +137,29 @@ sdivya,85301
 ```
 ### Number of Users who have only one post
 ```sql
-sqlite> SELECT COUNT(*) 
-FROM
-    (SELECT e.user, COUNT(*) as num
-	 FROM (SELECT user FROM nodes UNION ALL SELECT user
-	 FROM ways) e
-     GROUP BY e.user
-     HAVING num=1)  u;
+SELECT Count(*) 
+FROM   (SELECT e.user, 
+               Count(*) AS num 
+        FROM   (SELECT user 
+                FROM   nodes 
+                UNION ALL 
+                SELECT user 
+                FROM   ways) e 
+        GROUP  BY e.user 
+        HAVING num = 1) u;
 ```
 352
 
 ## Additional Data Exploration
 ### Top 10 appearing amenities
 ```sql
-sqlite> SELECT value, COUNT(*) as num
-FROM nodes_tags
-WHERE key='amenity'
-GROUP BY value
-ORDER BY num DESC
-LIMIT 10;
+SELECT value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+WHERE  key = 'amenity' 
+GROUP  BY value 
+ORDER  BY num DESC 
+LIMIT  10;
 ``` 
 ```
 restaurant,1202
@@ -160,28 +175,34 @@ fuel,265
 ```
 ### Biggest Religion
 ```sql
-sqlite> SELECT nodes_tags.value, COUNT(*) as num
-FROM nodes_tags 
-    JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE value='place_of_worship') i
-    ON nodes_tags.id=i.id
-WHERE nodes_tags.key='religion'
-GROUP BY nodes_tags.value
-ORDER BY num DESC
-LIMIT 1;
+SELECT nodes_tags.value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+       JOIN (SELECT DISTINCT( id ) 
+             FROM   nodes_tags 
+             WHERE  value = 'place_of_worship') i 
+         ON nodes_tags.id = i.id 
+WHERE  nodes_tags.key = 'religion' 
+GROUP  BY nodes_tags.value 
+ORDER  BY num DESC 
+LIMIT  1; 
 ```
 ```
 hindu,394
 ```
 ### Most Popular Cuisine
 ```sql
-sqlite> SELECT nodes_tags.value, COUNT(*) as num
-FROM nodes_tags 
-    JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE value='restaurant') i
-    ON nodes_tags.id=i.id
-WHERE nodes_tags.key='cuisine'
-GROUP BY nodes_tags.value
-ORDER BY num DESC
-LIMIT 10;
+SELECT nodes_tags.value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+       JOIN (SELECT DISTINCT( id ) 
+             FROM   nodes_tags 
+             WHERE  value = 'restaurant') i 
+         ON nodes_tags.id = i.id 
+WHERE  nodes_tags.key = 'cuisine' 
+GROUP  BY nodes_tags.value 
+ORDER  BY num DESC 
+LIMIT  10;
 ```
 ```
 indian,223
@@ -197,14 +218,19 @@ burger,9
 ```
 ### How many Kannada names are there?
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "kn";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  key = "kn";
 ```
 ```
 1953
 ```
 ### How many Junctions are in Bangalore?
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "junction" and value = "yes";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  key = "junction" 
+       AND value = "yes"; 
 ```
 ```
 99
@@ -213,7 +239,10 @@ In Bangalore, people are facing lot of problems commuting to work. Let's see how
 ### Number of Bus stops
 
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "highway" and value = "bus_stop";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  key = "highway" 
+       AND value = "bus_stop";
 ```
 
 ```
@@ -221,19 +250,23 @@ sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "highway" and value = "bus_s
 ```
 ### Number of Traffic signals
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "highway" and value = "traffic_signal";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  key = "highway" 
+       AND value = "traffic_signal";
 ```
 ```
 455
 ```
 ### Most common shops
 ```sql
-sqlite> SELECT value, COUNT(*) as num
-FROM nodes_tags
-WHERE key='shop'
-GROUP BY value
-ORDER BY num DESC
-LIMIT 10;
+SELECT value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+WHERE  key = 'shop' 
+GROUP  BY value 
+ORDER  BY num DESC 
+LIMIT  10;
 ```
 ```
 clothes,435
@@ -249,12 +282,13 @@ greengrocer,69
 ```
 ### Most common land uses
 ```sql
-sqlite> SELECT value, COUNT(*) as num
-FROM nodes_tags
-WHERE key='landuse'
-GROUP BY value
-ORDER BY num DESC
-LIMIT 10;
+SELECT value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+WHERE  key = 'landuse' 
+GROUP  BY value 
+ORDER  BY num DESC 
+LIMIT  10;
 ```
 ```
 commercial,93
@@ -270,14 +304,17 @@ office,1
 ```
 ### Which banks have more presence in Bangalore?
 ```sql
-sqlite> SELECT nodes_tags.value, COUNT(*) as num
-FROM nodes_tags 
-    JOIN (SELECT DISTINCT(id) FROM nodes_tags WHERE value='bank') i
-    ON nodes_tags.id=i.id
-WHERE nodes_tags.key='name'
-GROUP BY nodes_tags.value
-ORDER BY num DESC
-LIMIT 10;
+SELECT nodes_tags.value, 
+       Count(*) AS num 
+FROM   nodes_tags 
+       JOIN (SELECT DISTINCT( id ) 
+             FROM   nodes_tags 
+             WHERE  value = 'bank') i 
+         ON nodes_tags.id = i.id 
+WHERE  nodes_tags.key = 'name' 
+GROUP  BY nodes_tags.value 
+ORDER  BY num DESC 
+LIMIT  10;
 ```
 ```
 "State Bank of India",47
@@ -295,7 +332,9 @@ I am seeing lot of KFCs near my place. Let's see how many branches KFC have in B
 
 ### KFC Branches
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE value = "KFC";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  value = "kfc";
 ```
 ```
 29
@@ -304,11 +343,17 @@ I am new to Bangalore. Let's see how many historic places are there to visit in 
 
 ### Historic Places
 ```sql
-sqlite> SELECT COUNT(*) FROM nodes_tags WHERE key = "historic";
+SELECT Count(*) 
+FROM   nodes_tags 
+WHERE  key = "historic";
 ```
 ```
 44
 ```
 
 ## Conclusion
-Bangalore is a big cosmopolitan city. It has huge diversity in all aspects. People use different languages and names things differently. This might have posed some problem in data collecting. Even after cleaning, the data is incomplete. The data was collected by different users who follow different naming conventions, like for "pincode" people write "postcode", "postal_code" etc. Another problem is the language. Some people write in local language, for example "veedhi" for street etc. I also think that there should be a method and ranking to appreciate contributors. There should be a validation process to validate some data. For example some government websites have reliable data for pincodes. We can cross check the data with that reliable sources. I am sure we can create good data by following the above procedures and can contribute more to OpenStreetMap.
+Bangalore is a big cosmopolitan city. It has huge diversity in all aspects. People use different languages and names things differently. This might have posed some problem in data collecting. Even after cleaning, the data is incomplete. The data was collected by different users who follow different naming conventions, like for "pincode" people write "postcode", "postal_code" etc. Another problem is the language. Some people write in local language, for example "veedhi" for street etc. 
+
+I also think that there should be a method and ranking to appreciate contributors. There should be a validation process to validate some data. For example some government websites have reliable data for pincodes. We can cross check the data with that reliable sources. The benefits of having ranking criteria is that we can recognise top contributors and it also acts as a motivator for other people to contribute more. The only limitation is that having robust and better ranking criteria, like stackoverflow. We can minimise errors by having a good validation process. The limitations are having reliable sources. For some information, we can rely on government websites. But for most of the data, we don't have any reliable sources. And creating good scalable validation mechanisms is not an easy task.
+
+I am sure we can create good data by following the above procedures and can contribute more to OpenStreetMap.
