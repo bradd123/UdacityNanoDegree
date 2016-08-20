@@ -1,0 +1,5 @@
+1. https://docs.python.org/2/howto/regex.html
+2. http://www.tutorialspoint.com/sql/
+3. http://wiki.openstreetmap.org/wiki/Using_OpenStreetMap
+4. Udacity Discussions
+5. Google + Stackoverflow
