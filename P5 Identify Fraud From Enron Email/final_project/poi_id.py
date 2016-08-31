@@ -39,6 +39,7 @@ with open("final_project_dataset.pkl", "r") as data_file:
 ### Task 2: Remove outliers
 data_dict.pop('TOTAL', 0)
 data_dict.pop('THE TRAVEL AGENCY IN THE PARK', 0)
+data_dict.pop('LOCKHART EUGENE E', 0)
 
 
 
@@ -79,15 +80,15 @@ tree = DecisionTreeClassifier()
 parameters = {'tree__criterion' : ['gini', 'entropy'],
 			  'tree__splitter' : ['best', 'random'],
 			  'tree__random_state' : [42],
-			  'tree__max_depth':range(8,12)}
+			  'tree__max_depth':range(5,20,2)}
 
-min_max_scaler = MinMaxScaler()
+#min_max_scaler = MinMaxScaler()
 
-skb = SelectKBest(score_func = f_classif)
+#skb = SelectKBest(score_func = f_classif)
 
-pca_dt = PCA()
+#pca_dt = PCA()
 
-pipeline = Pipeline(steps = [('select', skb), ('tree', tree)])
+pipeline = Pipeline(steps = [('tree', tree)])
 
 cv = StratifiedShuffleSplit(labels, 100, random_state = 42)
 
