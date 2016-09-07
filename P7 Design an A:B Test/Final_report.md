@@ -30,6 +30,12 @@ Invariant metrics are the metrics that would be same in both control and experim
 
 Evaluation metrics are the metrics that would vary between control and experiment groups. By comparing differences between the control and experiment groups, we can measure the effectiveness of the free trail screener.
 
+The main goal here is minimizing the student frustration and utilizing coaching resources effectively. Cancelling early may be one good indicator of low satisfaction. If more people, who couldn't spend enough time daily on courses, enrolled in courses, then the coaching resources would be utilized inefficiently. So to consider a launch, the following must be observed.
+
+- Increased Retention (more students staying beyond the free trial in the experiment group)
+
+- Decreased Gross Conversion combined with Increased Net Conversion (less students enrolling in the free trial but more people staying beyond free trail)
+
 **Gross Conversion:** Number of user-ids to complete checkout and enroll in the free trail divided by number of unique cookies to click the "Start free trail" button. The practical minimum difference is 0.01.
 
 **Retention:** Number of user-ids to remain enrolled past the 14-day boundary(and thus make at least one payment) divided by number of user-ids to complete checkout. The practical minimum difference is 0.01.
@@ -90,9 +96,9 @@ Total PageViews required : 4,741,212
 
 ### Duration vs. Exposure
 
-In all of these three evaluation metrics retention has most number of pageviews. If we divert our 100% traffic and 400,000 pageviews per day, then it will take approx. 119 days. Thats appro. 4 months. This is not feasible. After removing the retention, the required pageviews will be 685,325. If we divert 50% traffic, it will take approx. 35 days.
+In all of these three evaluation metrics retention has most number of pageviews. If we divert our 100% traffic and 400,000 pageviews per day, then it will take approx. 119 days. Thats appro. 4 months. This is not feasible. After removing the retention, the required pageviews will be 685,325. If we divert 100% traffic, it will take approx. 18 days.
 
-A 119 day experiment with 100% diversion is potential risk for Udacity since it look longer and it may increase the number of frustrated students, lower conversion and retention and importantly inefficient use of coaching resources. In that time we could do other experiments. If the experiment took less time, it wouldn't be that much risk. The worst that could happen is drop in enrollments. Since it took less time, the effect would be less.
+Since we are not dealing with any sensitive data and have no potential risks, we could divert 100% traffic to the experiment. But I would not advice diverting all traffic. Because there is always a chance that data collected over a short period of time is influenced by specific events. This is why collecting data over a longer period of time helps get a sense of the differences between week days/weekends, different weeks, or even months. We also should keep in mind how many other experiments are running, to decide the fraction of traffic. If we divert 50% traffic, it would take approx. 35 days. The only potential problem that we would have is drop in enrollments. Since we are not expecting a big drop in enrollments, because of our new feature and the duration is 35 days, we can take this risk. So considering all above points, I would choose to divert 50% traffic, which will take 35 days to complete the experiment.
 
 ## Experiment analysis
 
@@ -126,7 +132,13 @@ The experiment was conducted to see whether asking how many hours users could sp
 
 ### Recommendation
 
-There is a statistically and practically significant difference in Gross Conversion that means there is significant decrease in enrollments. But Net Conversion is neither statistically nor practically significant that means there is no increase in students staying after 14 days and pay for the course. So I don't recommend to launch this experiment.
+To make a recommendation whether to launch or not, first we need to check our evaluation metrics. The results of these two metrics will give us the clue. If both these metrics resulted as we expected, then we could launch otherwise we should discuss other alternatives. Let's check each metric individually.
+
+Gross Conversion is the ratio of number of users enrolling the free trial and the number of users clicking the start free trail button. We are expecting fewer number of people enrolling in the course as a result of the free trail screener. Gross conversion is both statistically and practically significant, that means we are successful in decreasing the number of people who enroll for free trial.
+
+Net Conversion is the ratio of the number of users who remain enrolled past the 14 day trail period and the number of users who click the start free trial button. So we are expecting the number of people who stayed after 14 day period not to decrease. Net conversion is neither statistically nor practically significant. So the number of people who stayed after 14 day period decreased.
+
+So considering above points, I would recommend not to launch the experiment, rather it would be better to pursue other experiments. 
 
 ### Follow-Up Experiment
 
