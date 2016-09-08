@@ -32,9 +32,9 @@ Evaluation metrics are the metrics that would vary between control and experimen
 
 The main goal here is minimizing the student frustration and utilizing coaching resources effectively. Cancelling early may be one good indicator of low satisfaction. If more people, who couldn't spend enough time daily on courses, enrolled in courses, then the coaching resources would be utilized inefficiently. So to consider a launch, the following must be observed.
 
-- Increased Retention (more students staying beyond the free trial in the experiment group)
+- Retention (students who stay after free trial should not be decreased)
 
-- Decreased Gross Conversion combined with Increased Net Conversion (less students enrolling in the free trial but more people staying beyond free trail)
+- Gross Conversion and Net Conversion (less students enrolling in the free trial but students who stay after free trial should not be decreased)
 
 **Gross Conversion:** Number of user-ids to complete checkout and enroll in the free trail divided by number of unique cookies to click the "Start free trail" button. The practical minimum difference is 0.01.
 
@@ -42,7 +42,7 @@ The main goal here is minimizing the student frustration and utilizing coaching 
 
 **Net Conversion:** Number of user-ids to remain enrolled past the 14-day boundary(and thus make at least one payment) divided by the number of unique cookies to click the "Start free trail" button. The practical minimum difference is 0.0075.
 
-I am not using **Number of user-ids** as it is not a suitable invariant metric. user-ids are tracked only after enrolling in the free trail and we are not sure if equal distribution would be between the control and experiment branches. So it is not a good evaluation metric.
+Number of user-ids could be used as Evaluation metric. But it is not the best metric to choose as it is not normalized. It is better to use gross conversion, which will give more information than number of user-ids.
 
 ### Calculating Standard Deviation
 
@@ -136,9 +136,9 @@ To make a recommendation whether to launch or not, first we need to check our ev
 
 Gross Conversion is the ratio of number of users enrolling the free trial and the number of users clicking the start free trail button. We are expecting fewer number of people enrolling in the course as a result of the free trail screener. Gross conversion is both statistically and practically significant, that means we are successful in decreasing the number of people who enroll for free trial.
 
-Net Conversion is the ratio of the number of users who remain enrolled past the 14 day trail period and the number of users who click the start free trial button. So we are expecting the number of people who stayed after 14 day period not to decrease. Net conversion is neither statistically nor practically significant. So the number of people who stayed after 14 day period decreased.
+Net Conversion is the ratio of the number of users who remain enrolled past the 14 day trail period and the number of users who click the start free trial button. So we are expecting the number of people who stayed after 14 day period not to decrease. Net conversion is neither statistically nor practically significant. The confidence interval of Net conversion includes the negative of practical significance boundary. So the number of people who stay after trial period, could possibly go down by an amount that matters to business. With 95% confidence, the net conversion can be as low as -0.0116 and as high as 0.0019. We cannot say for certain whether it will decrease or increase. It is not worth taking this risk.
 
-So considering above points, I would recommend not to launch the experiment, rather it would be better to pursue other experiments. 
+So considering above points, I would recommend not to launch the experiment, rather it would be better to pursue other experiments.
 
 ### Follow-Up Experiment
 
