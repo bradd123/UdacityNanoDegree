@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <style>
+      #firstHeader {
+        position: absolute;
+        top: 29%;
+        left: 75%;
+      }
+      #secondHeader {
+        position: absolute;
+        top: 52%;
+        left: 75%;
+      }
+      div.position1 {
+        position: absolute;
+        top: 34%;
+        left: 75%;
+      }
+      div.position2 {
+        position: absolute;
+        top: 57%;
+        left: 75%;
+      }
+      h1,h2 {
+        text-align: center;
+      }
+      body {
+        margin: auto;
+        height: 100%;
+        width: 100%;
+      }
+      #chartContainer {
+        margin: auto;
+        height: 90vh;
+        width: 90vw;
+      }
+    </style>
+  <script type="text/javascript">
+    function draw(data) {
+      /*
+      d3 setup code
+      */
+      "use strict"
+      //  chart headers
+      var title = d3.select("#chartContainer").append("h1").text("Titanic Data Visualization");
+      var sub_title = d3.select("#chartContainer").append("h2").text("How Gender and Class influence survival chances?");
+      var heading = d3.select('#chartContainer').append("h6").text("This chart shows percentages of survived and perished passenges of the titanic disaster. Use buttons to filter between gender/class.");
+      // headers for button groups
+      var sub_heading_one = d3.select("#firstHeader").append("b").text("Class/Gender");
+      var sub_heading_two = d3.select("#secondHeader").append("b").text("Gender/Class");
+      var svg = dimple.newSvg("#chartContainer", "80%", "80%");
+
+      // function to convert from strings to integers
+      data.forEach(function(d){
+        d.Age = +d.Age;
+        d.PassengerId = +d.PassengerId;
+        d.Survived = +d.Survived;
+      });
+
+      // find out which category it belongs to show in hover tooltip
+      function which_class(cls) {
+        if(cls == 1) {
+          return "1st Class"
+        }
+        if(cls == 2) {
+          return "2nd Class"
+        }
+        if(cls == 3){
+          return "3rd Class"
+        }
+        if(cls == "male"){
+          return "male"
+        }
+        if(cls == "female"){
+          return "female"
+        }
+      }
+
+      // labels for both button groups
+      var gender_labels = ["all", "male", "female"];
+      var class_labels = ["all", "class 1", "class 2", "class 3"];
+
+      function update_chart(x_var, group) {
+        draw_chart(x_var, group);
+        return group;
+      }
+
+      // main function that draws the chart
+      function draw_chart(x_var, group) {
+        var myChart1 = svg.selectAll('*').remove();
+
+        if (group === "all"){
+          var data2 = data;
+        }
+
+        if (group === "male"){
+          var data2 = dimple.filterData(data, "Sex", "male");
+        }
+
+        if (group === "female"){
+          var data2 = dimple.filterData(data, "Sex", "female");
+        }
+
+        if (group === "class 1"){
+          var data2 = dimple.filterData(data, "Pclass", "1");
+        }
+
+        if(group === "class 2"){
+          var data2 = dimple.filterData(data, "Pclass", "2");
+        }
+
+        if(group === "class 3"){
+          var data2 = dimple.filterData(data, "Pclass", "3");
+        }
+
+        var myChart1 = new dimple.chart(svg, data2);
+        var x = myChart1.addCategoryAxis("x", x_var);
+        x.fontSize = "15px";
+        if (x_var === "Pclass"){
+          x.title = "Passenger Class";
+        }
+        if (x_var === "Sex"){
+          x.title = "Sex";
+        }
+        var y = myChart1.addPctAxis("y", "Survived");
+        y.fontSize = "15px";
+        var mySeries = myChart1.addSeries("Survived", dimple.plot.bar);
+        mySeries.aggregate = dimple.aggregateMethod.count;
+        // customised tooltip
+        mySeries.getTooltipText = function(e) {
+          return [
+            (e.aggField[0] == 1? "Survived" : "Perished"),
+            which_class(e.cx),
+            "Rate = " + Math.round(e.height * 1000)/10 + "%"
+          ];
+        }
+        // adding legend
+        var myLegend = myChart1.addLegend("90%", "10%", "10%", "25%", "right");
+        myLegend._getEntries = function() {
+                    var orderedValues = ["0", "1"];
+                    var newNames = {
+                        "0" : "Perished",
+                        "1" : "Survived"
+                    };
+                    var entries = [];
+                    orderedValues.forEach(function(v) {
+                        entries.push({
+                            key : newNames[v],
+                            fill : myChart1.getColor(v).fill,
+                            stroke : myChart1.getColor(v).stroke,
+                            opacity : myChart1.getColor(v).opacity,
+                            series : [mySeries],
+                            aggField : [v]
+                        });
+                    }, this);
+                    return entries;
+                };
+        myChart1.draw();
+        // changing category labels
+        x.shapes
+          .selectAll("text")
+          .text(function(d){
+            if(d === "1"){
+              return "1st Class"
+            }
+            if(d === "2"){
+              return "2nd Class"
+            }
+            if(d === "3"){
+              return "3rd Class"
+            }
+            return d;
+          });
+      }
+
+      // first chart to show when entering the page.
+      draw_chart("Pclass", "all");
+      d3.select(".position1").select("all").attr("class", "btn btn-primary");
+
+      // button group for Class/Gender
+      var buttons = d3.select("body")
+                           .append("div")
+                           .attr("class", "btn-group-vertical position1")
+                           .selectAll("div")
+                           .data(gender_labels)
+                           .enter()
+                           .append("div")
+                           .attr("class", "btn btn-secondary")
+                           .text(function(d) {
+                           return d;
+                          });
+
+      d3.select(".position1").select("div").attr("class", "btn btn-primary");
+
+      buttons.on("click", function(d){
+                            d3.select(".position1")
+                              .selectAll("div")
+                              .transition()
+                              .duration(500)
+                              .attr("class", "btn btn-secondary")
+
+                            d3.select(".position2")
+                              .selectAll("div")
+                              .transition()
+                              .duration(500)
+                              .attr("class", "btn btn-secondary");
+
+                            d3.select(this)
+                                  .transition()
+                                  .duration(500)
+                                  .attr("class", "btn btn-primary")
+
+                            var group = update_chart("Pclass", d);
+                          });
+
+      // button group for Gender/Class
+      var buttons_class = d3.select("body")
+                            .append("div")
+                            .attr("class", "btn-group-vertical position2")
+                            .selectAll("div")
+                            .data(class_labels)
+                            .enter()
+                            .append("div")
+                            .attr("class", "btn btn-secondary")
+                            .text(function(d) {
+                              return d;
+                            });
+
+      buttons_class.on("click", function(d){
+                                  d3.select(".position2")
+                                    .selectAll("div")
+                                    .transition()
+                                    .duration(500)
+                                    .attr("class", "btn btn-secondary");
+
+                                  d3.select(".position1")
+                                    .selectAll("div")
+                                    .transition()
+                                    .duration(500)
+                                    .attr("class", "btn btn-secondary")
+
+                                  d3.select(this)
+                                    .transition()
+                                    .duration(500)
+                                    .attr("class", "btn btn-primary");
+
+                                  var group = update_chart("Sex", d);
+                                });
+
+
+
+    };
+  </script>
+</head>
+<body>
+  <div id='chartContainer'></div>
+  <div id="firstHeader"></div>
+  <div id="secondHeader"></div>
+  <script type="text/javascript">
+    d3.csv("data/titanic_data.csv", draw);
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
+</body>
+</html>
