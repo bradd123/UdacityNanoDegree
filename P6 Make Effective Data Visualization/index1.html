@@ -59,16 +59,16 @@
       });
       function which_class(cls) {
         if(cls == 1) {
-          return "1st Class"
+          return "1st Class";
         }
         if(cls == 2) {
-          return "2nd Class"
+          return "2nd Class";
         }
         if(cls == 3){
-          return "3rd Class"
+          return "3rd Class";
         }
       }
-      var gender_labels = ["all", "male", "female"]
+      var gender_labels = ["all", "male", "female"];
       function update_chart(x_var, group) {
         draw_chart(x_var, group);
         return group;
@@ -121,16 +121,16 @@
       }
       draw_chart("Pclass", "all");
       var buttons = d3.select("body")
-                           .append("div")
-                           .attr("class", "btn-group-vertical")
-                           .selectAll("div")
-                           .data(gender_labels)
-                           .enter()
-                           .append("div")
-                           .attr("class", "btn btn-secondary")
-                           .text(function(d) {
-                           return d;
-                          });
+                      .append("div")
+                      .attr("class", "btn-group-vertical")
+                      .selectAll("div")
+                      .data(gender_labels)
+                      .enter()
+                      .append("div")
+                      .attr("class", "btn btn-secondary")
+                      .text(function(d) {
+                              return d;
+                            });
       buttons.on("click", function(d){
                             d3.select(".btn-group-vertical")
                               .selectAll("div")
@@ -138,9 +138,10 @@
                               .duration(500)
                               .attr("class", "btn btn-secondary")
                             d3.select(this)
-                                  .transition()
-                                  .duration(500)
-                                  .attr("class", "btn btn-primary")
+                              .transition()
+                              .duration(500)
+                              .attr("class", "btn btn-primary")
+
                             var group = update_chart("Pclass", d);
                           });
     };

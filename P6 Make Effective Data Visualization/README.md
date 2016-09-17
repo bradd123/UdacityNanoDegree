@@ -4,6 +4,12 @@
 
 This data visualization shows the percentage of survived and perished passengers of the titanic disaster. My main interest in this visualization is to show how `gender` and `class` influenced survival chances. This visualization explores the differences in classes within gender and also explores the differences in Gender within class too. In the same bar, one can observe percentages of survived and perished passengers.
 
+In the chart, you can observe the following things.
+- 1st class has more survived passengers than other two classes.
+- In 1st Class and 2nd Class more than 90% female survived, while 50% female survived in 3rd Class (click female button)
+- There are more survived female passengers than male passengers.
+- In 1st Class more than 90% female passengers survived whereas less than 40% male passengers survived. (click class 1 button)
+
 ## Design
 
 My objective is to show how many survived and how many perished in the same visual. Both Pclass and Sex are categorical variables. So stacked bar chart is the correct choice for me. To summarize, using stacked bar chart we could show categories of data and in each bar we could show the difference between surviving and perished passengers at the same time.

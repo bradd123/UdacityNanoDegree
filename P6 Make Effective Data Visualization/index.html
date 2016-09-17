@@ -65,19 +65,19 @@
       // find out which category it belongs to show in hover tooltip
       function which_class(cls) {
         if(cls == 1) {
-          return "1st Class"
+          return "1st Class";
         }
         if(cls == 2) {
-          return "2nd Class"
+          return "2nd Class";
         }
         if(cls == 3){
-          return "3rd Class"
+          return "3rd Class";
         }
         if(cls == "male"){
-          return "male"
+          return "male";
         }
         if(cls == "female"){
-          return "female"
+          return "female";
         }
       }
 
@@ -136,9 +136,10 @@
           return [
             (e.aggField[0] == 1? "Survived" : "Perished"),
             which_class(e.cx),
-            "Rate = " + Math.round(e.height * 1000)/10 + "%"
+            "Rate = " + Math.round(e.height * 1000)/10 + "%",
+            "Count = " + e.yValue
           ];
-        }
+        };
         // adding legend
         var myLegend = myChart1.addLegend("90%", "10%", "10%", "25%", "right");
         myLegend._getEntries = function() {
@@ -163,46 +164,50 @@
         myChart1.draw();
         // changing category labels
         x.shapes
-          .selectAll("text")
-          .text(function(d){
-            if(d === "1"){
-              return "1st Class"
-            }
-            if(d === "2"){
-              return "2nd Class"
-            }
-            if(d === "3"){
-              return "3rd Class"
-            }
-            return d;
-          });
+         .selectAll("text")
+         .text(function(d){
+           if(d === "1"){
+             return "1st Class";
+           }
+           if(d === "2"){
+             return "2nd Class";
+           }
+           if(d === "3"){
+             return "3rd Class";
+           }
+           return d;
+         });
       }
 
       // first chart to show when entering the page.
       draw_chart("Pclass", "all");
-      d3.select(".position1").select("all").attr("class", "btn btn-primary");
+      d3.select(".position1")
+        .select("all")
+        .attr("class", "btn btn-primary");
 
       // button group for Class/Gender
       var buttons = d3.select("body")
-                           .append("div")
-                           .attr("class", "btn-group-vertical position1")
-                           .selectAll("div")
-                           .data(gender_labels)
-                           .enter()
-                           .append("div")
-                           .attr("class", "btn btn-secondary")
-                           .text(function(d) {
-                           return d;
-                          });
+                      .append("div")
+                      .attr("class", "btn-group-vertical position1")
+                      .selectAll("div")
+                      .data(gender_labels)
+                      .enter()
+                      .append("div")
+                      .attr("class", "btn btn-secondary")
+                      .text(function(d) {
+                              return d;
+                      });
 
-      d3.select(".position1").select("div").attr("class", "btn btn-primary");
+      d3.select(".position1")
+        .select("div")
+        .attr("class", "btn btn-primary");
 
       buttons.on("click", function(d){
                             d3.select(".position1")
                               .selectAll("div")
                               .transition()
                               .duration(500)
-                              .attr("class", "btn btn-secondary")
+                              .attr("class", "btn btn-secondary");
 
                             d3.select(".position2")
                               .selectAll("div")
@@ -211,9 +216,9 @@
                               .attr("class", "btn btn-secondary");
 
                             d3.select(this)
-                                  .transition()
-                                  .duration(500)
-                                  .attr("class", "btn btn-primary")
+                              .transition()
+                              .duration(500)
+                              .attr("class", "btn btn-primary");
 
                             var group = update_chart("Pclass", d);
                           });
@@ -242,7 +247,7 @@
                                     .selectAll("div")
                                     .transition()
                                     .duration(500)
-                                    .attr("class", "btn btn-secondary")
+                                    .attr("class", "btn btn-secondary");
 
                                   d3.select(this)
                                     .transition()
