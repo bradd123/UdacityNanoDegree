@@ -16,7 +16,7 @@ My objective is to show how many survived and how many perished in the same visu
 
 I used D3.js to create two button groups. One button group is for visualizing within gender. Other button group is for visualizing within class. In this way, we can clearly see the difference both in gender and class. For example, when you click `male` button, you can see the probability of survival chances of male in each class.
 
-I used dimple.js to create charts because it not only easy but also has greater flexibility to add new functionalities without digging deep into library. On hovering over the bar, you can see a tooltip that shows survived/perished, belongs to which class/gender and the percentage of people survived/perished.
+I used dimple.js to create charts because it not only easy but also has greater flexibility to add new functionalities without digging deep into library. On hovering over the bar, you can see a tooltip that shows survived/perished, belongs to which class/gender and the percentage and count of people survived/perished.
 
 I used bootstrap classes for buttons and button groups.
 
@@ -25,7 +25,7 @@ I used bootstrap classes for buttons and button groups.
  - Added a new button group that shows how male and female rates compare within classes.
  - Added more text to summarize the findings.
  - Changed button group position from pixels to percentages.
- - In tooltip, showing rates in percentages instead of showing raw counts.
+ - In tooltip, showing rates in percentages in addition to showing raw counts.
  - Increased the font sizes and changed the axis titles.
 
 ## Feedback
